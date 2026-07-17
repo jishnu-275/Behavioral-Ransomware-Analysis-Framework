@@ -1,0 +1,14 @@
+# Python bytecode caches
+__pycache__/
+*.pyc
+
+# Local environment variables
+.env
+.venv/
+.idea/
+.vscode/
+
+# Ignore massive raw telemetry data sheets
+*.csv
+!analysis/feature_dataset.csv
+!evaluation/evaluation_results.csv
