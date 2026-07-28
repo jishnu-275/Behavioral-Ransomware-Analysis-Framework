@@ -1,0 +1,32 @@
+==============================================================
+  PERFORMANCE IMPROVEMENT SUMMARY
+  Ransomware Behavioral Analysis Framework
+==============================================================
+
+  Dataset : 98 samples  (malicious=58  benign=40)
+  Original features : 7
+  After engineering : 15 (+8 derived)
+  EDR Alert Decision Gate Threshold : 25.0% (Zero-Tolerance Mode)
+
+──────────────────────────────────────────────────────────────
+  Technique                                   AUC    Gain
+──────────────────────────────────────────────────────────────
+  Baseline RF (no improvements)           0.806     —
+  Tuned RF + Engineered Features          0.838    +0.032
+  SMOTE + Tuned RF                        0.834    +0.027
+  Stacking Ensemble (all 4 models)        0.828    +0.021
+──────────────────────────────────────────────────────────────
+
+  ENGINEERED FEATURES ADDED:
+  rename_ratio        = File_Ops_Renamed / File_Ops_Created
+  encryption_proxy    = (Modified + Renamed) / Deleted
+  registry_per_proc   = Registry_Ops_Written / Process_Ops_Spawned
+  extension_churn      = Unique_Extensions / File_Ops_Renamed
+  file_io_intensity   = sum of all file operations
+  del_create_ratio    = File_Ops_Deleted / File_Ops_Created
+  modify_create_ratio = File_Ops_Modified / File_Ops_Created
+  proc_file_ratio     = Process_Ops_Spawned / total_file_ops
+
+  BEST RF HYPERPARAMETERS FOUND:
+  {'clf__n_estimators': 100, 'clf__min_samples_split': 2, 'clf__min_samples_leaf': 2, 'clf__max_features': 0.7, 'clf__max_depth': 4}
+==============================================================
